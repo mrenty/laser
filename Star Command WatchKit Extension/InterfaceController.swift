@@ -8,14 +8,27 @@
 
 import WatchKit
 import Foundation
+import AVFoundation
 
 
 class InterfaceController: WKInterfaceController {
-
+    
+    var audioPlayer = AVAudioPlayer()
+    @IBOutlet var laserBtn: WKInterfaceButton!
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        // Configure interface objects here.
+        let music = Bundle.main.path(forResource: "laser", ofType: "m4a")
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: music! ))
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+            try AVAudioSession.sharedInstance().setActive(true)
+        }
+        catch{
+            print(error)
+        }
     }
     
     override func willActivate() {
@@ -28,4 +41,20 @@ class InterfaceController: WKInterfaceController {
         super.didDeactivate()
     }
 
+    @IBAction func fireLaser(_ sender: AnyObject) {
+        print("fireLaser")
+        
+//        guard let sender = sender as? WKLongPressGestureRecognizer else {
+//            return
+//        }
+//        if sender.state == WKGestureRecognizerState.began {
+//            print("Touch down")
+//        } else if sender.state == WKGestureRecognizerState.ended {
+//            print("Touch up")
+//        }
+        
+//        audioPlayer.numberOfLoops = -1
+//        audioPlayer.play()
+    }
+    
 }
