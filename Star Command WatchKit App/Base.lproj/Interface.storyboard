@@ -15,14 +15,17 @@
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Star_Command_WatchKit_App" customModuleProvider="target">
                     <items>
                         <button width="1" alignment="center" verticalAlignment="center" title="Fire" id="fse-7d-o9n">
+                            <gestureRecognizers>
+                                <longPressGestureRecognizer minimumPressDuration="0.0" id="6aJ-We-ayg">
+                                    <connections>
+                                        <action selector="fireLaser:" destination="AgC-eL-Hgc" id="seo-03-TsL"/>
+                                    </connections>
+                                </longPressGestureRecognizer>
+                            </gestureRecognizers>
                             <accessibilityTraits key="accessibilityTraits" button="YES" playsSound="YES"/>
-                            <connections>
-                                <action selector="fireLaser:" destination="AgC-eL-Hgc" id="inF-yz-RdE"/>
-                            </connections>
                         </button>
                     </items>
                     <connections>
-                        <outlet property="laserBtn" destination="fse-7d-o9n" id="zeV-ZG-ttI"/>
                         <segue destination="Qpy-Vx-aTM" kind="relationship" relationship="nextPage" id="Wjt-nI-cio"/>
                     </connections>
                 </controller>

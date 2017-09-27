@@ -14,7 +14,6 @@ import AVFoundation
 class InterfaceController: WKInterfaceController {
     
     var audioPlayer = AVAudioPlayer()
-    @IBOutlet var laserBtn: WKInterfaceButton!
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -42,19 +41,23 @@ class InterfaceController: WKInterfaceController {
     }
 
     @IBAction func fireLaser(_ sender: AnyObject) {
-        print("fireLaser")
+        guard let sender = sender as? WKLongPressGestureRecognizer else {
+            return
+        }
         
-//        guard let sender = sender as? WKLongPressGestureRecognizer else {
-//            return
-//        }
-//        if sender.state == WKGestureRecognizerState.began {
-//            print("Touch down")
-//        } else if sender.state == WKGestureRecognizerState.ended {
-//            print("Touch up")
-//        }
-        
-//        audioPlayer.numberOfLoops = -1
-//        audioPlayer.play()
+        if sender.state == WKGestureRecognizerState.began {
+            audioPlayer.stop()
+            audioPlayer.numberOfLoops = -1
+            audioPlayer.play()
+        } else if sender.state == WKGestureRecognizerState.ended {
+            audioPlayer.numberOfLoops = 0
+        }
+    }
+    
+    @IBAction func fireLaserOnce(_ sender: AnyObject) {
+        audioPlayer.stop()
+        audioPlayer.numberOfLoops = 0
+        audioPlayer.play()
     }
     
 }
